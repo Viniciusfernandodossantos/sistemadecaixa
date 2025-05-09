@@ -209,4 +209,18 @@ function renderGraficos() {
 
 function formatBRL(valor) {
   return valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+}function senhaParaSair(e) {
+  e.preventDefault();
+  e.returnValue = '';
+
+  const senha = prompt("Digite a senha de administrador para sair do sistema:");
+  if (senha !== "12345") {
+    alert("Senha incorreta! Não é possível fechar a aba.");
+    return false;
+  }
+
+  window.removeEventListener("beforeunload", senhaParaSair);
+  window.close();
 }
+
+window.addEventListener("beforeunload", senhaParaSair);
