@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FECAM - Controle de Caixa</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script defer src="script.js"></script>
+  <style>
+    body {
+      background-color: #121212;
+    }
+
+    .card {
+      border-radius: 1rem;
+      box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.3);
+    }
+
+    .card img {
+      object-fit: cover;
+      height: 200px;
+    }
+
+    .btn-success {
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-success:hover {
+      background-color: #198754;
+    }
+
+    .form-select,
+    .form-control {
+      background-color: #1e1e1e;
+      border-color: #444;
+      color: #fff;
+    }
+
+    .form-select:focus,
+    .form-control:focus {
+      box-shadow: none;
+      border-color: #198754;
+    }
+
+    #area-relatorio {
+      min-height: 200px;
+      white-space: pre-wrap;
+    }
+
+    canvas {
+      background-color: #fff;
+      border-radius: 0.5rem;
+    }
+
+    .list-group-item {
+      border: none;
+    }
+
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #area-relatorio, #area-relatorio * {
+        visibility: visible;
+      }
+      #area-relatorio {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+      }
+    }
+    .efeito-vidro {
+    background: rgba( 255, 255, 255, 0.35 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 13.5px );
+    -webkit-backdrop-filter: blur( 13.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+  }
+  </style>
+</head><div class="efeito-vidro">
+ 
+</div>
+
+<body class="bg-dark text-light">
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-dark bg-black fixed-top shadow">
+    <div class="container-fluid">
+      <span class="navbar-brand mb-0 h1">FECAM - Controle de Caixa</span>
+    </div>
+  </nav>
+
+  <div class="container mt-5 pt-4">
+
+    <!-- Seção: Produtos -->
+    <section id="produtos" class="my-4">
+      <h2 class="text-center mb-4">Produtos</h2>
+      <div class="row g-4">
+
+        <!-- Card 1 -->
+        <div class="col-md-4">
+          <div class="card bg-secondary text-light h-100">
+            <img src="https://th.bing.com/th/id/R.7d9b8bea550e25525f8a129f382d8318?rik=H%2fb6WijdyrJJkA&pid=ImgRaw&r=0&sres=1&sresct=1" class="card-img-top" alt="Hambúrguer de Costela">
+            <div class="card-body">
+              <h5 class="card-title">Hambúrguer de Costela</h5>
+              <p class="card-text">R$ 23,00</p>
+              <input type="number" class="form-control mb-2" placeholder="Quantidade" min="1">
+              <select class="form-select mb-2">
+                <option selected disabled>Forma de Pagamento</option>
+                <option value="PIX">PIX</option>
+                <option value="Dinheiro">Dinheiro</option>
+              </select>
+              <button class="btn btn-success w-100">Adicionar ao Pedido</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="col-md-4">
+          <div class="card bg-secondary text-light h-100">
+            <img src="https://emaismt.com.br/wp-content/uploads/2022/07/Design-sem-nome199.jpg" class="card-img-top" alt="Drink de Morango">
+            <div class="card-body">
+              <h5 class="card-title">Drink de Morango</h5>
+              <p class="card-text">R$ 10,00</p>
+              <input type="number" class="form-control mb-2" placeholder="Quantidade" min="1">
+              <select class="form-select mb-2">
+                <option selected disabled>Forma de Pagamento</option>
+                <option value="PIX">PIX</option>
+                <option value="Dinheiro">Dinheiro</option>
+              </select>
+              <button class="btn btn-success w-100">Adicionar ao Pedido</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="col-md-4">
+          <div class="card bg-secondary text-light h-100">
+            <img src="https://i0.wp.com/contilnetnoticias.com.br/wp-content/uploads/2021/01/319875_original.jpg?w=1349&ssl=1" class="card-img-top" alt="Drink de Limão">
+            <div class="card-body">
+              <h5 class="card-title">Drink de Limão</h5>
+              <p class="card-text">R$ 8,00</p>
+              <input type="number" class="form-control mb-2" placeholder="Quantidade" min="1">
+              <select class="form-select mb-2">
+                <option selected disabled>Forma de Pagamento</option>
+                <option value="PIX">PIX</option>
+                <option value="Dinheiro">Dinheiro</option>
+              </select>
+              <button class="btn btn-success w-100">Adicionar ao Pedido</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Seção: Estatísticas e Resumo -->
+    <section id="resumo" class="my-5">
+      <h2 class="text-center mb-4">Resumo do Dia</h2>
+      <div class="row">
+        <div class="col-md-6">
+          <ul class="list-group mb-3">
+            <li class="list-group-item bg-dark text-light">Total Bruto: <span id="total-bruto">R$ 0,00</span></li>
+            <li class="list-group-item bg-dark text-light">PIX: <span id="total-pix">R$ 0,00</span></li>
+            <li class="list-group-item bg-dark text-light">Dinheiro: <span id="total-dinheiro">R$ 0,00</span></li>
+            <li class="list-group-item bg-dark text-light">Despesas: <input type="number" id="despesas" class="form-control mt-2" placeholder="Valor das despesas"></li>
+            <li class="list-group-item bg-dark text-light">Lucro Líquido: <span id="lucro">R$ 0,00</span></li>
+          </ul>
+        </div>
+        <div class="col-md-6">
+          <ul class="list-group">
+            <li class="list-group-item bg-dark text-light">Hambúrgueres Vendidos: <span id="qtd-burguer">0</span></li>
+            <li class="list-group-item bg-dark text-light">Drinks de Morango: <span id="qtd-morango">0</span></li>
+            <li class="list-group-item bg-dark text-light">Drinks de Limão: <span id="qtd-limao">0</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção: Gráficos -->
+    <section id="graficos" class="my-5">
+      <h2 class="text-center mb-4">Gráficos</h2>
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <canvas id="grafico-barras"></canvas>
+        </div>
+        <div class="col-md-4 mb-3">
+          <canvas id="grafico-pizza"></canvas>
+        </div>
+        <div class="col-md-4 mb-3">
+          <canvas id="grafico-lucro"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção: Relatório -->
+    <section id="relatorio" class="my-5">
+      <h2 class="text-center mb-4">Relatório</h2>
+      <div class="mb-3">
+        <button class="btn btn-primary me-2">Gerar Relatório</button>
+        <button class="btn btn-outline-light" onclick="window.print()">Imprimir Relatório</button>
+        <button class="btn btn-danger float-end" id="limpar-dados">Limpar Dados do Dia</button>
+      </div>
+      <div id="area-relatorio" class="bg-secondary text-light p-4 rounded shadow">
+        <!-- conteúdo do relatório será injetado aqui -->
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Rodapé -->
+  <footer class="bg-black text-center text-light py-3 fixed-bottom">
+    Feito por Vinícius Fernando dos Santos. Todos os direitos reservados.
+  </footer>
+
+</body>
+</html>

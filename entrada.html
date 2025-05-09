@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login - FECAM</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-100">
+
+  <main class="w-full max-w-sm p-6 bg-white rounded-lg shadow-md">
+    <h2 class="text-2xl font-semibold text-center text-gray-700 mb-6">
+      Bem-vindo ao Sistema FECAM
+    </h2>
+
+    <form onsubmit="return login(event)" class="space-y-4">
+      <div>
+        <label for="usuario" class="block text-sm font-medium text-gray-600">Usuário</label>
+        <input 
+          type="text" 
+          id="usuario" 
+          name="usuario" 
+          required 
+          placeholder="Digite seu usuário"
+          class="mt-1 w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
+        />
+      </div>
+
+      <div>
+        <label for="senha" class="block text-sm font-medium text-gray-600">Senha</label>
+        <input 
+          type="password" 
+          id="senha" 
+          name="senha" 
+          required 
+          placeholder="Digite sua senha"
+          class="mt-1 w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-200"
+        />
+      </div>
+
+      <button 
+        type="submit"
+        class="w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition-colors"
+      >
+        Entrar
+      </button>
+
+      <p id="error-message" class="text-sm text-red-600 text-center hidden">Usuário ou senha incorretos!</p>
+    </form>
+
+    <footer class="mt-6 text-center text-sm text-gray-500">
+      © 2025 FECAM
+    </footer>
+  </main>
+
+  <script>
+    function login(event) {
+      event.preventDefault();
+
+      const usuario = document.getElementById('usuario').value.trim();
+      const senha = document.getElementById('senha').value.trim();
+      const errorMsg = document.getElementById('error-message');
+
+      if (usuario === 'admin' && senha === '1234') {
+        window.location.href = 'index.html';
+      } else {
+        errorMsg.classList.remove('hidden');
+      }
+    }
+  </script>
+
+</body>
+</html>
