@@ -12,6 +12,8 @@ const estado = {
   relatorioPausado: false
 };
 
+let chartBar, chartPie, chartLine;
+
 document.addEventListener("DOMContentLoaded", () => {
   setupInputs();
   renderResumo();
@@ -151,6 +153,10 @@ function renderGraficos() {
   const ctxPie = document.getElementById("grafico-pizza");
   const ctxLine = document.getElementById("grafico-lucro");
 
+  if (chartBar) chartBar.destroy();
+  if (chartPie) chartPie.destroy();
+  if (chartLine) chartLine.destroy();
+
   const burguer = estado.vendas.filter(v => v.nome.includes("Costela")).reduce((s,v) => s+v.quantidade, 0);
   const morango = estado.vendas.filter(v => v.nome.includes("Morango")).reduce((s,v) => s+v.quantidade, 0);
   const limao = estado.vendas.filter(v => v.nome.includes("Limão")).reduce((s,v) => s+v.quantidade, 0);
@@ -164,7 +170,7 @@ function renderGraficos() {
     lucroPorHora[hora] = (lucroPorHora[hora] || 0) + v.total;
   });
 
-  new Chart(ctxBar, {
+  chartBar = new Chart(ctxBar, {
     type: 'bar',
     data: {
       labels: ["Costela", "Morango", "Limão"],
@@ -176,7 +182,7 @@ function renderGraficos() {
     }
   });
 
-  new Chart(ctxPie, {
+  chartPie = new Chart(ctxPie, {
     type: 'pie',
     data: {
       labels: ["PIX", "Dinheiro"],
@@ -187,7 +193,7 @@ function renderGraficos() {
     }
   });
 
-  new Chart(ctxLine, {
+  chartLine = new Chart(ctxLine, {
     type: 'line',
     data: {
       labels: Object.keys(lucroPorHora),
